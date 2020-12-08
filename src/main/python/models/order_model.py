@@ -1,9 +1,1 @@
-from PyQt5.QtCore import QObject
-
-
-class OrderModel(QObject):
-    def __init__(self):
-        super().__init__()
-
-    def __del__(self):
-        pass
+"Tue Dec 08 2020 05:59:00 GMT-0800 (Pacific Standard Time)" 
