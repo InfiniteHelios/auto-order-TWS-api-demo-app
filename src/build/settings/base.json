@@ -1,1 +1,6 @@
-"Tue Dec 01 2020 23:58:00 GMT-0800 (Pacific Standard Time)" 
+{
+    "app_name": "Interactive Brokers",
+    "author": "Helios",
+    "main_module": "src/main/python/main.py",
+    "version": "0.0.0"
+}
