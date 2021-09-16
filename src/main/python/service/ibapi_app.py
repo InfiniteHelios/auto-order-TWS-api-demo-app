@@ -1,40 +1,114 @@
-from service.ibapi_client import IBAPIClient
-from service.ibapi_wrapper import IBAPIWrapper
-import threading
+from logging import error
+from ibapi.order_condition import ExecutionCondition
+from ibapi.utils import iswrapper
+from ibapi.common import *
+from ibapi.contract import Contract
+from ibapi.order import Order
+from ibapi.order_state import OrderState
+from ibapi.client import EClient
+from ibapi.wrapper import EWrapper
 
 
-class IBAPIApp(IBAPIWrapper, IBAPIClient):
-    """
-    The IB API application class creates the instances
-    of IBAPIWrapper and IBAPIClient, through a multiple
-    inheritance mechanism.
+class IBapiApp(EWrapper, EClient):
+    app = None
 
-    When the class is initialised it connects to the IB
-    server. At this stage multiple threads of execution
-    are generated for the client and wrapper.
+    def __init__(self, errorHandler=None):
+        EWrapper.__init__(self)
+        EClient.__init__(self, wrapper=self)
 
-    Parameters
-    ----------
-    ipaddress : `str`
-        The IP address of the TWS client/IB Gateway
-    portid : `int`
-        The port to connect to TWS/IB Gateway with
-    clientid : `int`
-        An (arbitrary) client ID, that must be a positive integer
-    """
+        self.errorHandler = errorHandler
+        self.started = False
+        self.nextValidOrderId = None
+        self.permId2ord = {}
 
-    def __init__(self, ipaddress, portid, clientid):
-        IBAPIWrapper.__init__(self)
-        IBAPIClient.__init__(self, wrapper=self)
+        # handlers
+        self.openOrderEndHandler = None
 
-        # Connects to the IB server with the
-        # appropriate connection parameters
-        self.connect(ipaddress, portid, clientid)
+    @iswrapper
+    def connectAck(self):
+        if self.asynchronous:
+            self.startApi()
 
-        # Initialise the threads for various components
-        thread = threading.Thread(target=self.run)
-        thread.start()
-        setattr(self, "_thread", thread)
+    @iswrapper
+    def nextValidId(self, orderId: int):
+        super().nextValidId(orderId)
+        self.nextValidOrderId = orderId
+        self.start()
 
-        # Listen for the IB responses
-        self.init_error()
+    def start(self):
+        if self.started:
+            return
+        self.started = True
+
+    def nextOrderId(self):
+        oid = self.nextValidOrderId
+        self.nextValidOrderId += 1
+        return oid
+
+    @iswrapper
+    def error(self, reqId: TickerId, errorCode: int, errorString: str):
+        super().error(reqId, errorCode, errorString)
+        msg = "Error.Id: %d Code %d Msg: %s" % (reqId, errorCode, errorString)
+        print(msg) if not self.errorHandler else self.errorHandler(msg)
+
+    @iswrapper
+    def winError(self, text: str, lastError: int):
+        super().winError(text, lastError)
+
+    @iswrapper
+    def currentTime(self, time: int):
+        super().currentTime(time)
+
+    @iswrapper
+    def openOrder(
+        self, orderId: OrderId, contract: Contract, order: Order, orderState: OrderState
+    ):
+        super().openOrder(orderId, contract, order, orderState)
+        order.contract = contract
+        self.permId2ord[order.permId] = order
+
+    @iswrapper
+    def openOrderEnd(self):
+        super().openOrderEnd()
+        self.openOrderEndHandler() if self.openOrderEndHandler else print(
+            "Received %d openOrders", len(self.permId2ord)
+        )
+
+    @iswrapper
+    def orderStatus(
+        self,
+        orderId: OrderId,
+        status: str,
+        filled: float,
+        remaining: float,
+        avgFillPrice: float,
+        permId: int,
+        parentId: int,
+        lastFillPrice: float,
+        clientId: int,
+        whyHeld: str,
+        mktCapPrice: float,
+    ):
+        super().orderStatus(
+            orderId,
+            status,
+            filled,
+            remaining,
+            avgFillPrice,
+            permId,
+            parentId,
+            lastFillPrice,
+            clientId,
+            whyHeld,
+            mktCapPrice,
+        )
+
+    @iswrapper
+    def execDetails(
+        self, reqId: int, contract: Contract, execution: ExecutionCondition
+    ):
+        super().execDetails(reqId, contract, execution)
+
+    @iswrapper
+    def orderBound(self, orderId: int, apiClientId: int, apiOrderId: int):
+        super().orderBound(orderId, apiClientId, apiOrderId)
