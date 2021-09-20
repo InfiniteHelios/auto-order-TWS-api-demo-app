@@ -13,6 +13,10 @@ class OrderEntry(QWidget, Ui_OrderEntry):
         self.setupUi(self)
 
     @pyqtSlot()
+    def on_edtFinInstr_editingFinished():
+        pass
+
+    @pyqtSlot()
     def on_btnSubmit_clicked(self):
         if not IBapiApp.app.started:
             QMessageBox.critical(
@@ -42,8 +46,8 @@ class OrderEntry(QWidget, Ui_OrderEntry):
         order = self.orderCreate()
         order.usePriceMgmtAlgo = True
         IBapiApp.app.placeOrder(IBapiApp.app.nextOrderId(), contract, order)
-        for ord in IBapiApp.app.permId2ord:
-            print("%d %s" % (ord.orderId, ord.status))
+        # for ord in IBapiApp.app.permId2ord:
+        #     print("%d %s" % (ord.orderId, ord.status))
 
     def validationCheck(self):
         if not self.radBuy.isChecked() and not self.radSell.isChecked():
@@ -63,8 +67,18 @@ class OrderEntry(QWidget, Ui_OrderEntry):
         return True
 
     def openOrderEndHandler(self):
-        print(IBapiApp.app.permId2ord)
-        # for (order, value) in IBapiApp.app.permId2ord:
-        #     row = self.tblOrders.rowCount()
-        #     self.tblOrders.insertRow(row)
-        #     self.tblOrders.setItem(row, 0, QTableWidgetItem(order.contract.symbol))
+        print(len(IBapiApp.app.permId2ord))
+        for orderId in IBapiApp.app.permId2ord:
+            order = IBapiApp.app.permId2ord[orderId]
+            row = self.tblOrders.rowCount()
+            self.tblOrders.insertRow(row)
+            self.tblOrders.setItem(row, 0, QTableWidgetItem(order.contract.symbol))
+            self.tblOrders.setItem(row, 1, QTableWidgetItem(order.action))
+            self.tblOrders.setItem(row, 2, QTableWidgetItem(order.orderType))
+            self.tblOrders.setItem(
+                row,
+                3,
+                QTableWidgetItem("%s %.2f" % (order.orderType, order.lmtPrice)),
+            )
+            self.tblOrders.setItem(row, 4, QTableWidgetItem(str(order.totalQuantity)))
+            self.tblOrders.setItem(row, 5, QTableWidgetItem("%.2f" % order.auxPrice))

@@ -1,5 +1,6 @@
 <RCC>
   <qresource prefix="/">
-    <file>resources/trash.png</file>
+    <file>resources/trash-black.png</file>
+    <file>resources/trash-white.png</file>
   </qresource>
 </RCC>

@@ -37,6 +37,26 @@
       </widget>
      </item>
      <item>
+      <widget class="QLabel" name="labForLastPrice">
+       <property name="text">
+        <string>Last Price: </string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QDoubleSpinBox" name="spnLastPrice">
+       <property name="readOnly">
+        <bool>true</bool>
+       </property>
+       <property name="maximum">
+        <double>9999.989999999999782</double>
+       </property>
+       <property name="singleStep">
+        <double>0.010000000000000</double>
+       </property>
+      </widget>
+     </item>
+     <item>
       <spacer name="horizontalSpacer">
        <property name="orientation">
         <enum>Qt::Horizontal</enum>
@@ -148,7 +168,7 @@
      <item>
       <widget class="QDoubleSpinBox" name="spnPrice">
        <property name="maximum">
-        <double>139372116959414099130712064.000000000000000</double>
+        <double>9999.000000000000000</double>
        </property>
        <property name="singleStep">
         <double>0.010000000000000</double>
@@ -241,6 +261,9 @@
      </property>
      <property name="selectionBehavior">
       <enum>QAbstractItemView::SelectRows</enum>
+     </property>
+     <property name="showGrid">
+      <bool>false</bool>
      </property>
      <property name="wordWrap">
       <bool>false</bool>

@@ -144,7 +144,7 @@
         <widget class="QPushButton" name="btnClearConsole">
          <property name="icon">
           <iconset resource="main.qrc">
-           <normaloff>:/resources/trash.png</normaloff>:/resources/trash.png</iconset>
+           <normaloff>:/resources/trash-white.png</normaloff>:/resources/trash-white.png</iconset>
          </property>
          <property name="iconSize">
           <size>
@@ -170,11 +170,7 @@
       </layout>
      </item>
      <item>
-      <widget class="QTextEdit" name="txtConsole">
-       <property name="readOnly">
-        <bool>true</bool>
-       </property>
-      </widget>
+      <widget class="QTextBrowser" name="txtConsole"/>
      </item>
     </layout>
    </widget>

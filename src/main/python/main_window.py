@@ -1,3 +1,4 @@
+from PyQt5.QtGui import QTextCursor
 from PyQt5.QtWidgets import QMainWindow, QMessageBox
 from PyQt5.QtCore import pyqtSlot, pyqtSignal, QThread
 import threading
@@ -22,6 +23,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         IBapiApp.app.started = False
 
     def consoleHandler(self, msg: str):
+        self.txtConsole.moveCursor(QTextCursor.End, QTextCursor.MoveAnchor)
         self.txtConsole.append("<p>%s</p>" % msg)
 
     def connect(self):
