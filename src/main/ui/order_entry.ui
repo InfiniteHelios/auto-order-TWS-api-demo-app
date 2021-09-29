@@ -2,9 +2,6 @@
 <ui version="4.0">
  <class>OrderEntry</class>
  <widget class="QWidget" name="OrderEntry">
-  <property name="enabled">
-   <bool>true</bool>
-  </property>
   <property name="geometry">
    <rect>
     <x>0</x>

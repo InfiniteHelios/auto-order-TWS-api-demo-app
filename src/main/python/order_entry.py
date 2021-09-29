@@ -1,5 +1,4 @@
-from PyQt5 import QtCore
-from PyQt5.QtWidgets import QTreeWidgetItem, QWidget, QMessageBox, QTableWidgetItem
+from PyQt5.QtWidgets import QTreeWidgetItem, QWidget, QMessageBox
 from PyQt5.QtCore import Qt, pyqtSlot
 from ibapi.contract import Contract
 from ibapi.order import Order
@@ -14,6 +13,8 @@ class OrderEntry(QWidget, Ui_OrderEntry):
         super().__init__(parent)
         self.setupUi(self)
         self.cmbSecType.currentTextChanged.connect(self.on_cmbSecType_changed)
+
+        self.app = None
 
     def onServerConnected(self):
         """Called when TWS Api server is connected"""
@@ -80,15 +81,15 @@ class OrderEntry(QWidget, Ui_OrderEntry):
     @pyqtSlot()
     def on_btnSubmit_clicked(self):
         """Place order"""
-        # if not IBapiApp.app.started:
-        #     QMessageBox.critical(
-        #         self,
-        #         "Error",
-        #         "Please connect to server.",
-        #     )
-        #     return
-        # if not self.validationCheck():
-        #     return
+        if not IBapiApp.app.started:
+            QMessageBox.critical(
+                self,
+                "Error",
+                "Please connect to server.",
+            )
+            return
+        if not self.validationCheck():
+            return
         orderTrigger = self.createOrderTrigger()
         self.insertOrderTrigger(orderTrigger)
 
@@ -211,21 +212,22 @@ class OrderEntry(QWidget, Ui_OrderEntry):
 
     def openOrderEndHandler(self):
         """Receive orders sent to TWS"""
-        for orderId in IBapiApp.app.permId2ord:
-            order = IBapiApp.app.permId2ord[orderId]
-            row = self.tblOrders.rowCount()
-            self.tblOrders.insertRow(row)
-            self.tblOrders.setItem(
-                row, 0, QTableWidgetItem(order.contract.symbol))
-            self.tblOrders.setItem(row, 1, QTableWidgetItem(order.action))
-            self.tblOrders.setItem(row, 2, QTableWidgetItem(order.orderType))
-            self.tblOrders.setItem(
-                row,
-                3,
-                QTableWidgetItem("%s %.2f" %
-                                 (order.orderType, order.lmtPrice)),
-            )
-            self.tblOrders.setItem(
-                row, 4, QTableWidgetItem(str(order.totalQuantity)))
-            self.tblOrders.setItem(
-                row, 5, QTableWidgetItem("%.2f" % order.auxPrice))
+        pass
+        # for orderId in IBapiApp.app.permId2ord:
+        #     order = IBapiApp.app.permId2ord[orderId]
+        #     row = self.tblOrders.rowCount()
+        #     self.tblOrders.insertRow(row)
+        #     self.tblOrders.setItem(
+        #         row, 0, QTableWidgetItem(order.contract.symbol))
+        #     self.tblOrders.setItem(row, 1, QTableWidgetItem(order.action))
+        #     self.tblOrders.setItem(row, 2, QTableWidgetItem(order.orderType))
+        #     self.tblOrders.setItem(
+        #         row,
+        #         3,
+        #         QTableWidgetItem("%s %.2f" %
+        #                          (order.orderType, order.lmtPrice)),
+        #     )
+        #     self.tblOrders.setItem(
+        #         row, 4, QTableWidgetItem(str(order.totalQuantity)))
+        #     self.tblOrders.setItem(
+        #         row, 5, QTableWidgetItem("%.2f" % order.auxPrice))

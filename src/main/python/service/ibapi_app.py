@@ -24,8 +24,24 @@ class IBapiApp(EWrapper, EClient):
 
         # handlers
         self.errorHandler = errorHandler
+        self.connectedHandler = None
+        self.connectionClosedHandler = None
         self.openOrderEndHandler = None
         self.managedAccountsHandler = None
+
+    def isConnected(self):
+        prev = self.started
+        self.started = super().isConnected()
+        if self.connectedHandler and not prev and self.started:
+            self.connectedHandler()
+        return self.started
+
+    @iswrapper
+    def connectionClosed(self):
+        if self.connectionClosedHandler:
+            self.connectionClosedHandler()
+        self.started = False
+        return super().connectionClosed()
 
     @iswrapper
     def connectAck(self):
@@ -41,7 +57,6 @@ class IBapiApp(EWrapper, EClient):
     def start(self):
         if self.started:
             return
-        self.started = True
 
     def nextOrderId(self):
         oid = self.nextValidOrderId
@@ -62,6 +77,8 @@ class IBapiApp(EWrapper, EClient):
     @iswrapper
     def winError(self, text: str, lastError: int):
         super().winError(text, lastError)
+        msg = "Error.Code %d Msg: %s" % (lastError, text)
+        print(msg) if not self.errorHandler else self.errorHandler(msg)
 
     @iswrapper
     def currentTime(self, time: int):
