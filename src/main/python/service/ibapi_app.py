@@ -1,4 +1,4 @@
-from logging import error
+from ibapi import ticktype
 from ibapi.order_condition import ExecutionCondition
 from ibapi.utils import iswrapper
 from ibapi.common import *
@@ -16,13 +16,16 @@ class IBapiApp(EWrapper, EClient):
         EWrapper.__init__(self)
         EClient.__init__(self, wrapper=self)
 
-        self.errorHandler = errorHandler
         self.started = False
         self.nextValidOrderId = None
+        self.nextReqId = 1
         self.permId2ord = {}
+        self.accounts = []
 
         # handlers
+        self.errorHandler = errorHandler
         self.openOrderEndHandler = None
+        self.managedAccountsHandler = None
 
     @iswrapper
     def connectAck(self):
@@ -43,6 +46,11 @@ class IBapiApp(EWrapper, EClient):
     def nextOrderId(self):
         oid = self.nextValidOrderId
         self.nextValidOrderId += 1
+        return oid
+
+    def nextReqestId(self):
+        oid = self.nextReqId
+        self.nextReqId += 1
         return oid
 
     @iswrapper
@@ -112,3 +120,16 @@ class IBapiApp(EWrapper, EClient):
     @iswrapper
     def orderBound(self, orderId: int, apiClientId: int, apiOrderId: int):
         super().orderBound(orderId, apiClientId, apiOrderId)
+
+    @iswrapper
+    def managedAccounts(self, accountsList: str):
+        super().managedAccounts(accountsList)
+        self.accounts = accountsList.split(",")
+        if self.managedAccountsHandler:
+            self.managedAccountsHandler()
+
+    def tickPrice(
+        self, reqId: TickerId, tickType: ticktype, price: float, attrib: TickAttrib
+    ):
+        super().tickPrice(reqId, tickType, price, attrib)
+        print("ReqId: %d tickType: %d price: %d" % (reqId, tickType, price))

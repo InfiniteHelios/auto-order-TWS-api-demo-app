@@ -6,12 +6,15 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>800</width>
-    <height>600</height>
+    <width>1000</width>
+    <height>650</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Interactive Broker TWS API Client</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">font: 10pt &quot;Arial&quot;;</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QVBoxLayout" name="verticalLayout">
@@ -93,7 +96,7 @@
       <item>
        <widget class="QPushButton" name="btnConnect">
         <property name="text">
-         <string>Connect</string>
+         <string>&amp;Connect</string>
         </property>
        </widget>
       </item>
@@ -123,8 +126,8 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>800</width>
-     <height>21</height>
+     <width>1000</width>
+     <height>22</height>
     </rect>
    </property>
   </widget>

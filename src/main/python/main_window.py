@@ -27,11 +27,16 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.txtConsole.append("<p>%s</p>" % msg)
 
     def connect(self):
-        print("connecting")
         self.tabWidget.setEnabled(False)
         self.host = self.edtHost.text()
-        self.port = int(self.edtPort.text())
-        self.clientid = int(self.edtClientId.text())
+        try:
+            self.port = int(self.edtPort.text())
+            self.clientid = int(self.edtClientId.text())
+        except:
+            QMessageBox.critical(
+                self, "Error", "Please check connection setting is valid."
+            )
+            return
 
         class ConnectorThread(QThread):
             finished = pyqtSignal(bool)
@@ -63,15 +68,13 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             return
 
         self.btnConnect.setText("Disconnect")
-        print("connected")
 
-        self.tabOrderEntry.on_connected()
+        self.tabOrderEntry.onServerConnected()
 
     def disconnect(self):
         IBapiApp.app.disconnect()
         IBapiApp.app.started = False
         self.btnConnect.setText("Connect")
-        print("disconnected")
 
     @pyqtSlot()
     def on_btnConnect_clicked(self):

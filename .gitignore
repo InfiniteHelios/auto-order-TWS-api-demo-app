@@ -1,4 +1,5 @@
 .vscode
+.venv
 .qt_for_python
 __pycache__
 src/main/python/ui
