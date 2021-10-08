@@ -6,34 +6,21 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>920</width>
-    <height>322</height>
+    <width>694</width>
+    <height>353</height>
    </rect>
   </property>
-  <property name="windowTitle">
-   <string>OrderEntry</string>
-  </property>
-  <layout class="QVBoxLayout" name="verticalLayout">
+  <layout class="QHBoxLayout" name="horizontalLayout_4">
+   <property name="spacing">
+    <number>15</number>
+   </property>
    <item>
-    <layout class="QHBoxLayout" name="horizontalLayout">
+    <layout class="QVBoxLayout" name="layTicker">
      <property name="spacing">
-      <number>10</number>
+      <number>15</number>
      </property>
      <item>
-      <widget class="QLabel" name="labForFinInstr">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Maximum" vsizetype="Preferred">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="text">
-        <string>Ticker:</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QLineEdit" name="edtFinInstr">
+      <widget class="QLineEdit" name="edtTicker">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
          <horstretch>0</horstretch>
@@ -46,136 +33,12 @@
       </widget>
      </item>
      <item>
-      <spacer name="horizontalSpacer_5">
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-       <property name="sizeType">
-        <enum>QSizePolicy::Maximum</enum>
-       </property>
-       <property name="sizeHint" stdset="0">
-        <size>
-         <width>40</width>
-         <height>20</height>
-        </size>
-       </property>
-      </spacer>
-     </item>
-     <item>
-      <widget class="QLabel" name="labForLastPrice">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Maximum" vsizetype="Preferred">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="text">
-        <string>Last Price:</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QLabel" name="labLastPrice">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Maximum" vsizetype="Preferred">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="text">
-        <string>0.00</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <spacer name="horizontalSpacer_4">
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-       <property name="sizeHint" stdset="0">
-        <size>
-         <width>40</width>
-         <height>20</height>
-        </size>
-       </property>
-      </spacer>
-     </item>
-     <item>
-      <widget class="QFrame" name="frmBidAsk">
-       <property name="styleSheet">
-        <string notr="true">#frmBidAsk {
-	border: 5px solid rgb(170, 0, 0);
-	border-top: none;
-	border-left: none;
-	border-right: none;
-}</string>
-       </property>
-       <property name="frameShape">
-        <enum>QFrame::StyledPanel</enum>
-       </property>
-       <property name="frameShadow">
-        <enum>QFrame::Raised</enum>
-       </property>
-       <layout class="QHBoxLayout" name="horizontalLayout_3">
-        <property name="spacing">
-         <number>40</number>
-        </property>
-        <property name="leftMargin">
-         <number>0</number>
-        </property>
-        <property name="topMargin">
-         <number>0</number>
-        </property>
-        <property name="rightMargin">
-         <number>0</number>
-        </property>
-        <property name="bottomMargin">
-         <number>2</number>
-        </property>
-        <item>
-         <widget class="QLabel" name="labBidPrice">
-          <property name="text">
-           <string>0.05</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QLabel" name="labMidPrice">
-          <property name="text">
-           <string>0.06</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QLabel" name="labAskPrice">
-          <property name="text">
-           <string>0.07</string>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </widget>
-     </item>
-     <item>
-      <spacer name="horizontalSpacer_6">
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-       <property name="sizeHint" stdset="0">
-        <size>
-         <width>40</width>
-         <height>20</height>
-        </size>
-       </property>
-      </spacer>
-     </item>
-     <item>
       <widget class="QComboBox" name="cmbSecType">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
+       <property name="minimumSize">
+        <size>
+         <width>100</width>
+         <height>0</height>
+        </size>
        </property>
        <item>
         <property name="text">
@@ -190,568 +53,340 @@
       </widget>
      </item>
      <item>
-      <widget class="QComboBox" name="cmbAccount"/>
-     </item>
-    </layout>
-   </item>
-   <item>
-    <layout class="QHBoxLayout" name="horizontalLayout_2">
-     <property name="spacing">
-      <number>10</number>
-     </property>
-     <item>
-      <widget class="QRadioButton" name="radBuy">
-       <property name="text">
-        <string>BUY</string>
-       </property>
-       <property name="checked">
-        <bool>true</bool>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QRadioButton" name="radSell">
-       <property name="styleSheet">
-        <string notr="true"/>
-       </property>
-       <property name="text">
-        <string>SELL</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <spacer name="horizontalSpacer_2">
+      <spacer name="verticalSpacer_2">
        <property name="orientation">
-        <enum>Qt::Horizontal</enum>
+        <enum>Qt::Vertical</enum>
        </property>
        <property name="sizeType">
-        <enum>QSizePolicy::Maximum</enum>
-       </property>
-       <property name="sizeHint" stdset="0">
-        <size>
-         <width>40</width>
-         <height>20</height>
-        </size>
-       </property>
-      </spacer>
-     </item>
-     <item>
-      <widget class="QLabel" name="labForPos">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Maximum" vsizetype="Preferred">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="text">
-        <string>POS:</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QSpinBox" name="spnPos">
-       <property name="maximum">
-        <number>999999999</number>
-       </property>
-       <property name="value">
-        <number>100</number>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <spacer name="horizontalSpacer_7">
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-       <property name="sizeType">
-        <enum>QSizePolicy::Maximum</enum>
+        <enum>QSizePolicy::MinimumExpanding</enum>
        </property>
        <property name="sizeHint" stdset="0">
         <size>
          <width>20</width>
-         <height>20</height>
+         <height>40</height>
         </size>
        </property>
       </spacer>
      </item>
      <item>
-      <widget class="QComboBox" name="cmbOrderType">
+      <layout class="QHBoxLayout" name="horizontalLayout_7">
        <item>
-        <property name="text">
-         <string>LMT</string>
-        </property>
+        <widget class="QRadioButton" name="radBuy">
+         <property name="text">
+          <string>BUY</string>
+         </property>
+         <property name="checked">
+          <bool>true</bool>
+         </property>
+        </widget>
        </item>
        <item>
-        <property name="text">
-         <string>MKT</string>
-        </property>
+        <widget class="QRadioButton" name="radSell">
+         <property name="styleSheet">
+          <string notr="true"/>
+         </property>
+         <property name="text">
+          <string>SELL</string>
+         </property>
+        </widget>
        </item>
-       <item>
-        <property name="text">
-         <string>MID</string>
-        </property>
-       </item>
-      </widget>
-     </item>
-     <item>
-      <spacer name="horizontalSpacer_8">
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-       <property name="sizeType">
-        <enum>QSizePolicy::Maximum</enum>
-       </property>
-       <property name="sizeHint" stdset="0">
-        <size>
-         <width>20</width>
-         <height>20</height>
-        </size>
-       </property>
-      </spacer>
-     </item>
-     <item>
-      <widget class="QLabel" name="labForEntryLevel">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Maximum" vsizetype="Preferred">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="text">
-        <string>Entry Level:</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QDoubleSpinBox" name="spnEntryLevel">
-       <property name="suffix">
-        <string> $</string>
-       </property>
-       <property name="maximum">
-        <double>9999.000000000000000</double>
-       </property>
-       <property name="singleStep">
-        <double>0.010000000000000</double>
-       </property>
-       <property name="value">
-        <double>10.000000000000000</double>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <spacer name="horizontalSpacer_9">
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-       <property name="sizeType">
-        <enum>QSizePolicy::Maximum</enum>
-       </property>
-       <property name="sizeHint" stdset="0">
-        <size>
-         <width>20</width>
-         <height>20</height>
-        </size>
-       </property>
-      </spacer>
-     </item>
-     <item>
-      <widget class="QComboBox" name="cmbTimeIF">
-       <item>
-        <property name="text">
-         <string>DAY</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>GTC</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>OPG</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>IOC</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>GTD</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>DTC</string>
-        </property>
-       </item>
-      </widget>
-     </item>
-     <item>
-      <widget class="QCheckBox" name="chkOutsideRTH">
-       <property name="text">
-        <string>Outside RTH</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <spacer name="horizontalSpacer_3">
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-       <property name="sizeHint" stdset="0">
-        <size>
-         <width>40</width>
-         <height>20</height>
-        </size>
-       </property>
-      </spacer>
+      </layout>
      </item>
     </layout>
    </item>
    <item>
-    <layout class="QHBoxLayout" name="horizontalLayout_4">
+    <layout class="QVBoxLayout" name="verticalLayout_3">
      <item>
-      <widget class="QLabel" name="labForStopLoss">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Maximum" vsizetype="Preferred">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="text">
-        <string>Stop Loss:</string>
-       </property>
-      </widget>
+      <layout class="QHBoxLayout" name="horizontalLayout_8">
+       <item>
+        <widget class="QLabel" name="labForLastPrice">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Maximum" vsizetype="Preferred">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="text">
+          <string>Last:</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="labLastPrice">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Maximum" vsizetype="Preferred">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="text">
+          <string>0.00</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <spacer name="horizontalSpacer_4">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeType">
+          <enum>QSizePolicy::Maximum</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>40</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item>
+        <widget class="QFrame" name="frmBidAsk">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">#frmBidAsk {
+	border: 5px solid rgb(170, 0, 0);
+	border-top: none;
+	border-left: none;
+	border-right: none;
+}</string>
+         </property>
+         <property name="frameShape">
+          <enum>QFrame::StyledPanel</enum>
+         </property>
+         <property name="frameShadow">
+          <enum>QFrame::Raised</enum>
+         </property>
+         <layout class="QHBoxLayout" name="horizontalLayout_3">
+          <property name="leftMargin">
+           <number>0</number>
+          </property>
+          <property name="topMargin">
+           <number>0</number>
+          </property>
+          <property name="rightMargin">
+           <number>0</number>
+          </property>
+          <property name="bottomMargin">
+           <number>2</number>
+          </property>
+          <item>
+           <widget class="QLabel" name="labBidPrice">
+            <property name="text">
+             <string>0.05</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <spacer name="horizontalSpacer_6">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item>
+           <widget class="QLabel" name="labMidPrice">
+            <property name="text">
+             <string>0.06</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <spacer name="horizontalSpacer_10">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item>
+           <widget class="QLabel" name="labAskPrice">
+            <property name="text">
+             <string>0.07</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <spacer name="horizontalSpacer">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>40</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item>
+        <widget class="QPushButton" name="btnSubmit">
+         <property name="minimumSize">
+          <size>
+           <width>100</width>
+           <height>0</height>
+          </size>
+         </property>
+         <property name="text">
+          <string>Submit</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
      </item>
      <item>
-      <widget class="QDoubleSpinBox" name="spnStopLoss">
-       <property name="suffix">
-        <string> $</string>
-       </property>
-       <property name="maximum">
-        <double>9999.989999999999782</double>
-       </property>
-       <property name="singleStep">
-        <double>0.010000000000000</double>
-       </property>
-       <property name="value">
-        <double>9.699999999999999</double>
-       </property>
-      </widget>
+      <layout class="QHBoxLayout" name="horizontalLayout_12">
+       <item>
+        <widget class="QComboBox" name="cmbOrderType">
+         <item>
+          <property name="text">
+           <string>LMT</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>MKT</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>MID</string>
+          </property>
+         </item>
+        </widget>
+       </item>
+       <item>
+        <widget class="QComboBox" name="cmbTimeIF">
+         <item>
+          <property name="text">
+           <string>DAY</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>GTC</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>OPG</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>IOC</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>GTD</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>DTC</string>
+          </property>
+         </item>
+        </widget>
+       </item>
+       <item>
+        <widget class="QCheckBox" name="chkOutsideRTH">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="text">
+          <string>Outside RTH</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <spacer name="horizontalSpacer_2">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>40</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+      </layout>
      </item>
      <item>
-      <spacer name="horizontalSpacer_10">
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-       <property name="sizeType">
-        <enum>QSizePolicy::Maximum</enum>
-       </property>
-       <property name="sizeHint" stdset="0">
-        <size>
-         <width>40</width>
-         <height>20</height>
-        </size>
-       </property>
-      </spacer>
-     </item>
-     <item>
-      <widget class="QLabel" name="labForThreshold">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Maximum" vsizetype="Preferred">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="text">
-        <string>Threshold:</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QDoubleSpinBox" name="spnThreshold">
-       <property name="suffix">
-        <string> %</string>
-       </property>
-       <property name="maximum">
-        <double>100.000000000000000</double>
-       </property>
-       <property name="singleStep">
-        <double>1.000000000000000</double>
-       </property>
-       <property name="value">
-        <double>3.000000000000000</double>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <spacer name="horizontalSpacer_11">
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-       <property name="sizeType">
-        <enum>QSizePolicy::Maximum</enum>
-       </property>
-       <property name="sizeHint" stdset="0">
-        <size>
-         <width>40</width>
-         <height>20</height>
-        </size>
-       </property>
-      </spacer>
-     </item>
-     <item>
-      <widget class="QLabel" name="labForPT1">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Maximum" vsizetype="Preferred">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="text">
-        <string>PT1:</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QDoubleSpinBox" name="spnPT1">
-       <property name="suffix">
-        <string> $</string>
-       </property>
-       <property name="maximum">
-        <double>9999.989999999999782</double>
-       </property>
-       <property name="singleStep">
-        <double>0.001000000000000</double>
-       </property>
-       <property name="value">
-        <double>11.000000000000000</double>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <spacer name="horizontalSpacer_12">
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-       <property name="sizeType">
-        <enum>QSizePolicy::Maximum</enum>
-       </property>
-       <property name="sizeHint" stdset="0">
-        <size>
-         <width>40</width>
-         <height>20</height>
-        </size>
-       </property>
-      </spacer>
-     </item>
-     <item>
-      <widget class="QLabel" name="labForPT2">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Maximum" vsizetype="Preferred">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="text">
-        <string>PT2:</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QDoubleSpinBox" name="spnPT2">
-       <property name="suffix">
-        <string> $</string>
-       </property>
-       <property name="maximum">
-        <double>9999.989999999999782</double>
-       </property>
-       <property name="singleStep">
-        <double>0.001000000000000</double>
-       </property>
-       <property name="value">
-        <double>12.000000000000000</double>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <spacer name="horizontalSpacer_13">
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-       <property name="sizeType">
-        <enum>QSizePolicy::Maximum</enum>
-       </property>
-       <property name="sizeHint" stdset="0">
-        <size>
-         <width>40</width>
-         <height>20</height>
-        </size>
-       </property>
-      </spacer>
-     </item>
-     <item>
-      <widget class="QLabel" name="labForPT3">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Maximum" vsizetype="Preferred">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="text">
-        <string>PT3:</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QDoubleSpinBox" name="spnPT3">
-       <property name="suffix">
-        <string> $</string>
-       </property>
-       <property name="maximum">
-        <double>9999.989999999999782</double>
-       </property>
-       <property name="singleStep">
-        <double>0.001000000000000</double>
-       </property>
-       <property name="value">
-        <double>13.000000000000000</double>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <spacer name="horizontalSpacer_14">
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-       <property name="sizeType">
-        <enum>QSizePolicy::Maximum</enum>
-       </property>
-       <property name="sizeHint" stdset="0">
-        <size>
-         <width>40</width>
-         <height>20</height>
-        </size>
-       </property>
-      </spacer>
-     </item>
-     <item>
-      <widget class="QLabel" name="labForPT4">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Maximum" vsizetype="Preferred">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="text">
-        <string>PT4:</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QDoubleSpinBox" name="spnPT4">
-       <property name="suffix">
-        <string> $</string>
-       </property>
-       <property name="maximum">
-        <double>9999.989999999999782</double>
-       </property>
-       <property name="singleStep">
-        <double>0.001000000000000</double>
-       </property>
-       <property name="value">
-        <double>14.000000000000000</double>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <spacer name="horizontalSpacer">
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-       <property name="sizeHint" stdset="0">
-        <size>
-         <width>40</width>
-         <height>20</height>
-        </size>
-       </property>
-      </spacer>
-     </item>
-     <item>
-      <widget class="QPushButton" name="btnSubmit">
-       <property name="text">
-        <string>Submit</string>
-       </property>
-      </widget>
+      <layout class="QHBoxLayout" name="horizontalLayout_6">
+       <item>
+        <widget class="OrderEntryLevel" name="groupEntryLevel">
+         <property name="title">
+          <string>Entry Level</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="OrderEntryLevel" name="groupPT1">
+         <property name="title">
+          <string>Price Target 1</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="OrderEntryLevel" name="groupPT2">
+         <property name="title">
+          <string>Price Target 2</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="OrderEntryLevel" name="groupPT3">
+         <property name="title">
+          <string>Price Target 3</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="OrderEntryLevel" name="groupPT4">
+         <property name="title">
+          <string>Price Target 4</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
      </item>
     </layout>
-   </item>
-   <item>
-    <widget class="QLabel" name="labForPendingOrders">
-     <property name="text">
-      <string>Pending Orders will be triggered</string>
-     </property>
-    </widget>
-   </item>
-   <item>
-    <widget class="QTreeWidget" name="trePendingOrders">
-     <property name="editTriggers">
-      <set>QAbstractItemView::NoEditTriggers</set>
-     </property>
-     <property name="animated">
-      <bool>true</bool>
-     </property>
-     <column>
-      <property name="text">
-       <string>Ticker</string>
-      </property>
-     </column>
-     <column>
-      <property name="text">
-       <string>SecType</string>
-      </property>
-     </column>
-     <column>
-      <property name="text">
-       <string>Action</string>
-      </property>
-     </column>
-     <column>
-      <property name="text">
-       <string>Type</string>
-      </property>
-     </column>
-     <column>
-      <property name="text">
-       <string>Entry Level</string>
-      </property>
-     </column>
-     <column>
-      <property name="text">
-       <string>Pos</string>
-      </property>
-     </column>
-     <column>
-      <property name="text">
-       <string>TIF</string>
-      </property>
-     </column>
-     <column>
-      <property name="text">
-       <string>Status</string>
-      </property>
-     </column>
-     <column>
-      <property name="text">
-       <string/>
-      </property>
-     </column>
-    </widget>
    </item>
   </layout>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>OrderEntryLevel</class>
+   <extends>QGroupBox</extends>
+   <header location="global">/order_entry_level.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>

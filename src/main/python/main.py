@@ -2,17 +2,12 @@ from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QColor, QPalette
 from fbs_runtime.application_context.PyQt5 import ApplicationContext
 import sys
-import os
-
-# import qdarkstyle
 
 from main_window import MainWindow
 
 
 def setDarkStyle(app):
     app.setStyle("Fusion")
-    #
-    # # Now use a palette to switch to dark colors:
     dark_palette = QPalette()
     dark_palette.setColor(QPalette.Window, QColor(53, 53, 53))
     dark_palette.setColor(QPalette.WindowText, Qt.white)
@@ -31,21 +26,21 @@ def setDarkStyle(app):
     dark_palette.setColor(QPalette.Disabled, QPalette.ButtonText, Qt.darkGray)
     dark_palette.setColor(QPalette.Disabled, QPalette.WindowText, Qt.darkGray)
     dark_palette.setColor(QPalette.Disabled, QPalette.Text, Qt.darkGray)
-    dark_palette.setColor(QPalette.Disabled, QPalette.Light, QColor(53, 53, 53))
+    dark_palette.setColor(
+        QPalette.Disabled, QPalette.Light, QColor(53, 53, 53))
     app.setPalette(dark_palette)
 
 
-if __name__ == "__main__":
-    appctxt = ApplicationContext()  # 1. Instantiate ApplicationContext
-    window = MainWindow()
-
+def main():
+    appctxt = ApplicationContext()
     setDarkStyle(appctxt.app)
 
-    # setup stylesheet
-    # appctxt.app.setStyleSheet(qdarkstyle.load_stylesheet_pyqt5())
-    # or in new API
-    # appctxt.app.setStyleSheet(qdarkstyle.load_stylesheet(qt_api='pyqt5'))
-
+    window = MainWindow()
     window.show()
-    exit_code = appctxt.app.exec_()  # 2. Invoke appctxt.app.exec_()
+
+    exit_code = appctxt.app.exec_()
     sys.exit(exit_code)
+
+
+if __name__ == "__main__":
+    main()

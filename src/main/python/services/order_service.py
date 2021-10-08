@@ -1,7 +1,7 @@
 from ibapi.contract import Contract
 from ibapi.order import Order
-from service.contract_samples import ContractSamples
-from service.order_samples import OrderSamples
+from services.contract_samples import ContractSamples
+from services.order_samples import OrderSamples
 
 
 class OrderService:

@@ -1,120 +1,100 @@
-from PyQt5.QtGui import QColor, QTextCursor
+from PyQt5.QtGui import QColor
 from PyQt5.QtWidgets import QMainWindow, QMessageBox
-from PyQt5.QtCore import pyqtSlot, pyqtSignal, QThread
-import threading
+from PyQt5.QtCore import pyqtSlot
 
 from ui.main_window_ui import Ui_MainWindow
-from service.ibapi_app import IBapiApp
+from models.main_model import mainModel
+from controllers.main_controller import MainController
 from waitingspinnerwidget import QtWaitingSpinner
 
 
-class MainWindow(QMainWindow, Ui_MainWindow):
+class MainWindow(QMainWindow):
     def __init__(self, parent=None):
         super().__init__(parent)
-        self.setupUi(self)
+        self.init_Ui()
+        self._model = mainModel
+        self._controller = MainController(self._model, self._ui)
 
-        # spinner
-        self.spinner = QtWaitingSpinner(self)
-        self.spinner.setRoundness(70.0)
-        self.spinner.setMinimumTrailOpacity(15.0)
-        self.spinner.setTrailFadePercentage(70.0)
-        self.spinner.setNumberOfLines(12)
-        self.spinner.setLineLength(10)
-        self.spinner.setLineWidth(5)
-        self.spinner.setInnerRadius(10)
-        self.spinner.setRevolutionsPerSecond(1)
-        self.spinner.setColor(QColor(200, 200, 200))
-
-        self.host = "127.0.0.1"
-        self.port = 7496
-        self.clientid = 1
-        IBapiApp.app = IBapiApp(self.consoleHandler)
-        IBapiApp.app.connectedHandler = self.onConnectedHandler
-        IBapiApp.app.connectionClosedHandler = self.onConnectionClosedHandler
+        self.init_connection()
 
     def closeEvent(self, event):
         super(QMainWindow, self).closeEvent(event)
-        IBapiApp.app.disconnect()
-        IBapiApp.app.started = False
+        del self._spinner
+        del self._controller
+        del self._model
+        del self._ui
 
-    def consoleHandler(self, msg: str):
-        self.txtConsole.moveCursor(QTextCursor.End, QTextCursor.MoveAnchor)
-        self.txtConsole.append("<p>%s</p>" % msg)
+    def init_Ui(self):
+        self._ui = Ui_MainWindow()
+        self._ui.setupUi(self)
+        self.set_connected_Ui(False)
+        self.init_spinner()
 
-    def connect(self):
-        self.host = self.edtHost.text()
-        try:
-            self.port = int(self.edtPort.text())
-            self.clientid = int(self.edtClientId.text())
-        except:
-            QMessageBox.critical(
-                self, "Error", "Please check connection setting is valid."
-            )
-            self.spinner.stop()
-            self.centralWidget().setEnabled(True)
-            return
+    def init_connection(self):
+        self._controller.err_occured.connect(self.on_err_occured)
+        self._controller.con_err_occured.connect(self.on_con_err_occured)
+        self._controller.disconnected.connect(self.on_disconnected)
+        self._controller.connected.connect(self.on_connected)
 
-        self.api_thread = ConnectorThread(
-            self.host, self.port, self.clientid, self)
-        self.api_thread.finished.connect(self.connectingFinished)
-        self.api_thread.start()
+    def set_connected_Ui(self, isConnected: bool = True):
+        self._ui.btnConnect.setVisible(not isConnected)
+        self._ui.btnDisconnect.setVisible(isConnected)
 
-    def connectingFinished(self, connected: bool):
-        self.api_thread.deleteLater()
-        if connected:
-            return
-        IBapiApp.app.disconnect()
-        self.centralWidget().setEnabled(True)
-        self.spinner.stop()
-        QMessageBox.critical(self, "Error", "Can't connect to server.")
-
-    def onConnectedHandler(self):
-        self.spinner.stop()
-        self.centralWidget().setEnabled(True)
-        self.btnConnect.setText("Disconnect")
-        print("Connected to Trader Workstation.")
-
-        self.tabOrderEntry.onServerConnected()
-
-    def onConnectionClosedHandler(self):
-        self.btnConnect.setText("Connect")
-        self.centralWidget().setEnabled(True)
-        if self.spinner.isSpinning:
-            self.spinner.stop()
-        print("Connection is closed.")
-
-    def disconnect(self):
-        IBapiApp.app.disconnect()
+    def init_spinner(self):
+        self._spinner = QtWaitingSpinner(self)
+        self._spinner.setRoundness(70.0)
+        self._spinner.setMinimumTrailOpacity(15.0)
+        self._spinner.setTrailFadePercentage(70.0)
+        self._spinner.setNumberOfLines(12)
+        self._spinner.setLineLength(10)
+        self._spinner.setLineWidth(5)
+        self._spinner.setInnerRadius(10)
+        self._spinner.setRevolutionsPerSecond(1)
+        self._spinner.setColor(QColor(200, 200, 200))
 
     @pyqtSlot()
     def on_btnConnect_clicked(self):
-        print("btnConnect is clicked.")
+        try:
+            host = self._ui.edtHost.text()
+            port = int(self._ui.edtPort.text())
+            client_id = int(self._ui.edtClientId.text())
+        except:
+            self.on_err_occured("Please check connection setting is valid.")
+            return
         self.centralWidget().setEnabled(False)
-        self.spinner.start()
-        self.connect() if IBapiApp.app.started == False else self.disconnect()
+        self._spinner.start()
+        self._controller.connect(host, port, client_id)
+
+    @pyqtSlot()
+    def on_btnDisconnect_clicked(self):
+        self.centralWidget().setEnabled(False)
+        self._spinner.start()
+        self._controller.disconnect()
 
     @pyqtSlot()
     def on_btnClearConsole_clicked(self):
-        self.txtConsole.clear()
+        self._ui.txtConsole.clear()
 
+    @pyqtSlot(str)
+    def on_err_occured(self, msg: str):
+        self._spinner.stop()
+        self.centralWidget().setEnabled(True)
+        QMessageBox.critical(self, "Error", msg)
 
-class ConnectorThread(QThread):
-    finished = pyqtSignal(bool)
+    @pyqtSlot()
+    def on_con_err_occured(self):
+        self.on_err_occured('Error is occured in socket connection.')
 
-    def __init__(self, host, port, clientid, parent=None):
-        super().__init__(parent)
-        self.host = host
-        self.port = port
-        self.clientid = clientid
+    @pyqtSlot()
+    def on_connected(self):
+        self._spinner.stop()
+        self.centralWidget().setEnabled(True)
+        self.set_connected_Ui()
+        self._controller.pushSuccessMsg("Connected to API")
 
-    def run(self):
-        try:
-            IBapiApp.app.connect(self.host, self.port, self.clientid)
-            if not IBapiApp.app.serverVersion():
-                self.finished.emit(False)
-            else:
-                thread = threading.Thread(target=IBapiApp.app.run, daemon=True)
-                thread.start()
-                self.finished.emit(True)
-        except:
-            self.finished.emit(False)
+    @pyqtSlot()
+    def on_disconnected(self):
+        self._spinner.stop()
+        self.centralWidget().setEnabled(True)
+        self.set_connected_Ui(False)
+        self._controller.pushCriticalMsg("Disconnected")
