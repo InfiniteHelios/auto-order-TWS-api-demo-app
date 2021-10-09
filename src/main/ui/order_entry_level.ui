@@ -6,15 +6,9 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>227</width>
-    <height>98</height>
+    <width>265</width>
+    <height>129</height>
    </rect>
-  </property>
-  <property name="sizePolicy">
-   <sizepolicy hsizetype="Maximum" vsizetype="Maximum">
-    <horstretch>0</horstretch>
-    <verstretch>0</verstretch>
-   </sizepolicy>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
@@ -49,7 +43,7 @@
       </widget>
      </item>
      <item>
-      <widget class="QLabel" name="labForEntryLevel">
+      <widget class="QLabel" name="labForPrice">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Maximum" vsizetype="Preferred">
          <horstretch>0</horstretch>
@@ -62,7 +56,7 @@
       </widget>
      </item>
      <item>
-      <widget class="QDoubleSpinBox" name="spnEntryLevel">
+      <widget class="QDoubleSpinBox" name="spnPrice">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
          <horstretch>0</horstretch>
@@ -86,6 +80,27 @@
     </layout>
    </item>
    <item>
+    <layout class="QHBoxLayout" name="horizontalLayout_3">
+     <item>
+      <widget class="QRadioButton" name="radPercentage">
+       <property name="text">
+        <string>Percentage</string>
+       </property>
+       <property name="checked">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QRadioButton" name="radFixedPrice">
+       <property name="text">
+        <string>Fixed Price</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item>
     <layout class="QHBoxLayout" name="horizontalLayout_2">
      <item>
       <widget class="QLabel" name="labForStopLoss">
@@ -97,6 +112,28 @@
        </property>
        <property name="text">
         <string>Stop Loss:</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QDoubleSpinBox" name="spnStopLossPrice">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="suffix">
+        <string> $</string>
+       </property>
+       <property name="maximum">
+        <double>9999.000000000000000</double>
+       </property>
+       <property name="singleStep">
+        <double>0.010000000000000</double>
+       </property>
+       <property name="value">
+        <double>9.699999999999999</double>
        </property>
       </widget>
      </item>
@@ -141,15 +178,15 @@
       </widget>
      </item>
      <item>
-      <widget class="QDoubleSpinBox" name="spnStopLossPrice">
-       <property name="enabled">
-        <bool>false</bool>
-       </property>
+      <widget class="QDoubleSpinBox" name="spnLoss">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
          <horstretch>0</horstretch>
          <verstretch>0</verstretch>
         </sizepolicy>
+       </property>
+       <property name="readOnly">
+        <bool>true</bool>
        </property>
        <property name="prefix">
         <string>- </string>
@@ -209,14 +246,14 @@
      </item>
      <item>
       <widget class="QDoubleSpinBox" name="spnThresholdPrice">
-       <property name="enabled">
-        <bool>false</bool>
-       </property>
        <property name="sizePolicy">
         <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
          <horstretch>0</horstretch>
          <verstretch>0</verstretch>
         </sizepolicy>
+       </property>
+       <property name="readOnly">
+        <bool>true</bool>
        </property>
        <property name="suffix">
         <string> $</string>
@@ -233,6 +270,19 @@
       </widget>
      </item>
     </layout>
+   </item>
+   <item>
+    <spacer name="verticalSpacer">
+     <property name="orientation">
+      <enum>Qt::Vertical</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>20</width>
+       <height>40</height>
+      </size>
+     </property>
+    </spacer>
    </item>
   </layout>
  </widget>
