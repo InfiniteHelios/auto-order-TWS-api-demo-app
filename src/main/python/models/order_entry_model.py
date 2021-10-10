@@ -82,3 +82,43 @@ class OrderEntryModel(QObject):
         self._levels['PT2']['StopLossPrice'] = val
         self._levels['PT3']['StopLossPrice'] = val
         self._levels['PT4']['StopLossPrice'] = val
+
+    @property
+    def entryLevelData(self):
+        return self._levels['EntryLevel']
+
+    @entryLevelData.setter
+    def entryLevelData(self, val):
+        self._levels['EntryLevel'] = val
+
+    @property
+    def pt1Data(self):
+        return self._levels['PT1']
+
+    @pt1Data.setter
+    def pt1Data(self, val):
+        self._levels['PT1'] = val
+
+    @property
+    def pt2Data(self):
+        return self._levels['PT2']
+
+    @pt2Data.setter
+    def pt2Data(self, val):
+        self._levels['PT2'] = val
+
+    @property
+    def pt3Data(self):
+        return self._levels['PT3']
+
+    @pt3Data.setter
+    def pt3Data(self, val):
+        self._levels['PT3'] = val
+
+    @property
+    def pt4Data(self):
+        return self._levels['PT4']
+
+    @pt4Data.setter
+    def pt4Data(self, val):
+        self._levels['PT4'] = val

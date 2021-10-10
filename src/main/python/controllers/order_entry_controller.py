@@ -22,3 +22,10 @@ class OrderEntryController(QObject):
         for account in accounts:
             chkAccount = QCheckBox(account)
             self._ui.layTicker.addWidget(chkAccount)
+
+    def submit(self, accounts: list):
+        self._model.entryLevelData = self._ui.groupEntryLevel._model.data
+        self._model.pt1Data = self._ui.groupPT1._model.data
+        self._model.pt2Data = self._ui.groupPT2._model.data
+        self._model.pt3Data = self._ui.groupPT3._model.data
+        self._model.pt4Data = self._ui.groupPT4._model.data

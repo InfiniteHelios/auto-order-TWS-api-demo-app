@@ -24,8 +24,20 @@ class OrderEntryLevelModel(QObject):
         self.calcThresholdPrice()
 
     def calcLoss(self, isFixedMode: bool = False):
+        self._mode = 'Fixed' if isFixedMode else 'Percentage'
         self._loss = self._price * self._pos * self._stopLoss / 100.0 if not isFixedMode \
             else self._pos * (self._price - self._stopLossPrice)
+
+    @property
+    def data(self):
+        return {
+            'POS': self._pos,
+            'Price': self._price,
+            'Mode': self._mode,
+            'StopLoss': self._stopLoss,
+            'StopLossPrice': self._stopLossPrice,
+            'Threshold': self._threshold
+        }
 
     @property
     def stopLoss(self):

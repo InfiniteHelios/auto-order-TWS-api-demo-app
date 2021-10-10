@@ -1,5 +1,6 @@
+import PyQt5
 from PyQt5.QtCore import pyqtSlot
-from PyQt5.QtWidgets import QWidget
+from PyQt5.QtWidgets import QCheckBox, QMessageBox, QWidget
 from models.order_entry_model import OrderEntryModel
 from controllers.order_entry_controller import OrderEntryController
 from ui.order_entry_ui import Ui_OrderEntry
@@ -38,6 +39,7 @@ class OrderEntry(QWidget, Ui_OrderEntry):
             self.on_entryMode_changed)
         self._ui.groupEntryLevel._ui.spnStopLossPrice.valueChanged.connect(
             self.on_entryStopLossPrice_changed)
+        self._ui.btnSubmit.clicked.connect(self.on_submit)
 
     def clear_Ui(self):
         self._ui.groupPT4.hideThreshold()
@@ -92,3 +94,27 @@ class OrderEntry(QWidget, Ui_OrderEntry):
         self._ui.groupPT2._ui.spnStopLossPrice.setValue(val)
         self._ui.groupPT3._ui.spnStopLossPrice.setValue(val)
         self._ui.groupPT4._ui.spnStopLossPrice.setValue(val)
+
+    @pyqtSlot()
+    def on_submit(self):
+        # get selected accounts
+        accounts = self.selectedAccounts()
+        if len(accounts) == 0:
+            QMessageBox.warning(
+                self, "Warning", "Please select more than one account.")
+            return
+        self._controller.submit(accounts)
+
+    def selectedAccounts(self):
+        result = []
+        for i in range(self._ui.layTicker.count()):
+            item = self._ui.layTicker.itemAt(i).widget()
+            if item.__class__ == QCheckBox and item.isChecked():
+                result.append(item.text())
+        return result
+
+    def set_disconnected_Ui(self):
+        for i in range(self._ui.layTicker.count()):
+            item = self._ui.layTicker.itemAt(i).widget()
+            if item.__class__ == QCheckBox:
+                item.deleteLater()

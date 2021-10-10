@@ -70,6 +70,7 @@ class MainWindow(QMainWindow):
         self.centralWidget().setEnabled(False)
         self._spinner.start()
         self._controller.disconnect()
+        self._ui.tabOrder._ui.orderEntry.set_disconnected_Ui()
 
     @pyqtSlot()
     def on_btnClearConsole_clicked(self):
