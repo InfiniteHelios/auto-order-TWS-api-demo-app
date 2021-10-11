@@ -38,6 +38,8 @@ class OrderEntryLevel(QGroupBox, Ui_OrderEntryLevel):
     @pyqtSlot(str)
     def on_type_changed(self, type: str):
         self.setStockLayout() if type == 'Stock' else self.setOptionLayout()
+        self.on_cmbStopLoss_currentIndexChanged(
+            self._ui.cmbStopLoss.currentIndex())
 
     def setStockLayout(self):
         self._ui.cmbStopLoss.blockSignals(True)
