@@ -1,5 +1,4 @@
-import PyQt5
-from PyQt5.QtCore import pyqtSlot
+from PyQt5.QtCore import Qt, pyqtSignal, pyqtSlot
 from PyQt5.QtWidgets import QCheckBox, QMessageBox, QWidget
 from models.order_entry_model import OrderEntryModel
 from controllers.order_entry_controller import OrderEntryController
@@ -7,6 +6,8 @@ from ui.order_entry_ui import Ui_OrderEntry
 
 
 class OrderEntry(QWidget, Ui_OrderEntry):
+    submitted = pyqtSignal(OrderEntryModel)
+
     def __init__(self, parent=None):
         super().__init__(parent)
         self.init_Ui()
@@ -40,8 +41,10 @@ class OrderEntry(QWidget, Ui_OrderEntry):
         self._ui.groupEntryLevel._ui.spnStopLossPrice.valueChanged.connect(
             self.on_entryStopLossPrice_changed)
         self._ui.btnSubmit.clicked.connect(self.on_submit)
+        self._ui.radSell.toggled.connect(self.on_radSell_toggled)
 
     def clear_Ui(self):
+        self._model.clear()
         self._ui.groupPT4.hideThreshold()
         self.on_entryPos_changed(self._model.entryPos)
         self.on_entryPrice_changed(self._model.entryPrice)
@@ -99,11 +102,44 @@ class OrderEntry(QWidget, Ui_OrderEntry):
     def on_submit(self):
         # get selected accounts
         accounts = self.selectedAccounts()
-        if len(accounts) == 0:
-            QMessageBox.warning(
-                self, "Warning", "Please select more than one account.")
-            return
-        self._controller.submit(accounts)
+        # if len(accounts) == 0:
+        #     QMessageBox.warning(
+        #         self, "Warning", "Please select more than one account.")
+        #     return
+        # if not self._mainModel.app.isConnected():
+        #     QMessageBox.warning(self._view, "Warning",
+        #                         "Please connect to the server.")
+        #     return
+        self._model.ticker = self._ui.edtTicker.text()
+        # if not self._model.action:
+        #     QMessageBox.warning(
+        #         self._view,
+        #         "Warning",
+        #         "Please select action type as Buy or Sell.",
+        #     )
+        #     return
+        # if not len(self._model.ticker):
+        #     QMessageBox.warning(
+        #         self._view,
+        #         "Warning",
+        #         "Please enter a ticker.",
+        #     )
+        #     return
+        # if not self.validation_check():
+        #     QMessageBox.warning(self._view, "Warning",
+        #                         "Please confirm your input is valid.")
+        #     return
+        self._model.accounts = accounts
+        self._model.secType = self._ui.cmbSecType.currentText()
+        self._model.outsideRTH = self._ui.chkOutsideRTH.isChecked()
+        self._model.tif = self._ui.cmbTimeIF.currentText()
+        self._model.orderType = self._ui.cmbOrderType.currentText()
+        self._model._levels['EntryLevel'] = self._ui.groupEntryLevel._model.data
+        self._model._levels['PT1'] = self._ui.groupPT1._model.data
+        self._model._levels['PT2'] = self._ui.groupPT2._model.data
+        self._model._levels['PT3'] = self._ui.groupPT3._model.data
+        self._model._levels['PT4'] = self._ui.groupPT4._model.data
+        self.submitted.emit(self._model)
 
     def selectedAccounts(self):
         result = []
@@ -118,3 +154,25 @@ class OrderEntry(QWidget, Ui_OrderEntry):
             item = self._ui.layTicker.itemAt(i).widget()
             if item.__class__ == QCheckBox:
                 item.deleteLater()
+
+    @pyqtSlot()
+    def on_radSell_toggled(self):
+        if self._ui.radSell.isChecked():
+            self.setLayoutForSell()
+        else:
+            self.setLayoutForBuy()
+        self._controller.actionUpdated(self._ui.radSell)
+
+    def setLayoutForSell(self):
+        self._ui.cmbOrderType.setEnalbed(False)
+        self._ui.cmbOrderType.setCurrentText("LMT")
+        self._ui.cmbTimeIF.setEnabled(False)
+        self._ui.cmbTimeIF.setCurrentText("GTC")
+        self._ui.chkOutsideRTH.setEnabled(False)
+        self._ui.chkOutsideRTH.setCheckState(Qt.CheckState.Unchecked)
+
+    def setLayoutForBuy(self):
+        self._ui.cmbOrderType.setEnalbed(True)
+        self._ui.cmbTimeIF.setEnabled(True)
+        self._ui.chkOutsideRTH.setEnabled(True)
+        self._ui.chkOutsideRTH.setCheckState(Qt.CheckState.Checked)

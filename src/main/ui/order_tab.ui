@@ -53,12 +53,12 @@
      </column>
      <column>
       <property name="text">
-       <string>Type</string>
+       <string>Account</string>
       </property>
      </column>
      <column>
       <property name="text">
-       <string>Entry Level</string>
+       <string>TIF</string>
       </property>
      </column>
      <column>
@@ -68,7 +68,17 @@
      </column>
      <column>
       <property name="text">
-       <string>TIF</string>
+       <string>Price</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>StopLoss</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>Threshold</string>
       </property>
      </column>
      <column>

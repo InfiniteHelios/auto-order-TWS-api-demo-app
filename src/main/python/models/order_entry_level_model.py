@@ -17,6 +17,7 @@ class OrderEntryLevelModel(QObject):
         self._stopLoss: int = self._ui.cmbStopLoss.currentData()
         self._stopLossPrice: float = self._ui.spnStopLossPrice.value()
         self._threshold: int = self._ui.spnThreshold.value()
+        self._mode = 'Percentage'
         self.calcAllPrices()
 
     def calcAllPrices(self):
@@ -36,7 +37,8 @@ class OrderEntryLevelModel(QObject):
             'Mode': self._mode,
             'StopLoss': self._stopLoss,
             'StopLossPrice': self._stopLossPrice,
-            'Threshold': self._threshold
+            'Threshold': self._threshold,
+            'Status': 'Pending'
         }
 
     @property

@@ -11,6 +11,7 @@ class MainModel(QObject):
         self.app: IBapiApp = IBapiApp()
 
         self.accounts: list = []
+        self.triggers = {}
 
     def __del__(self):
         try:
@@ -19,6 +20,11 @@ class MainModel(QObject):
             pass
         finally:
             del self.app
+
+    def addTrigger(self, trigger):
+        id = len(self.triggers)
+        self.triggers[id] = trigger
+        return id
 
 
 mainModel = MainModel()

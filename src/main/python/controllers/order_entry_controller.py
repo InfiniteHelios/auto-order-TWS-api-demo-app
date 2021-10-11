@@ -23,9 +23,13 @@ class OrderEntryController(QObject):
             chkAccount = QCheckBox(account)
             self._ui.layTicker.addWidget(chkAccount)
 
-    def submit(self, accounts: list):
+    def actionUpdated(self, isSell: bool):
+        self._mainModel.action = 'Sell' if isSell else 'Buy'
+
+    def validation_check(self):
         self._model.entryLevelData = self._ui.groupEntryLevel._model.data
         self._model.pt1Data = self._ui.groupPT1._model.data
         self._model.pt2Data = self._ui.groupPT2._model.data
         self._model.pt3Data = self._ui.groupPT3._model.data
         self._model.pt4Data = self._ui.groupPT4._model.data
+        return self._model.validation_check()
