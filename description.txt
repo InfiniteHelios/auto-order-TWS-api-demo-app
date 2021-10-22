@@ -1,0 +1,15 @@
+-----Paper Account
+User: jjjjj2021
+Pwd: JamesBond007
+Url: https://ndcdyn.interactivebrokers.com/sso/Login
+AccountId: DU4392157
+
+Google Docs: https://docs.google.com/spreadsheets/d/1nC4D_RYWoIolxk18Q0Z1mwZ2tGy8lU46LrC29FYLlSc/edit#gid=0
+
+marc.perso.317@gmail.com
+
+
+
+http://holowczak.com/ib-tws-api-tutorials-by-api-topic/
+https://www.interactivebrokers.eu/de/?f=11698
+https://interactivebrokers.github.io/tws-api/modifying_orders.html
